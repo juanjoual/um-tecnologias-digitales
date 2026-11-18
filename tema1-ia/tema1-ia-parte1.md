@@ -4,9 +4,9 @@ theme: ual
 lang: es
 size: 16:9
 paginate: true
-title: Tema 1 · Inteligencia Artificial · Parte 1 · Qué es la IA y cómo funciona
+title: Tema 1 · Inteligencia artificial · Parte 1 · Qué es la IA y cómo funciona
 description: Universidad de Mayores · Universidad de Almería · Tecnologías digitales, usos, oportunidades y riesgos
-header: 'Tema 1 · Inteligencia Artificial · Parte 1'
+header: 'Tema 1 · Inteligencia artificial · Parte 1'
 footer: 'Tecnologías digitales · Universidad de Mayores · UAL'
 ---
 
@@ -16,7 +16,7 @@ footer: 'Tecnologías digitales · Universidad de Mayores · UAL'
 
 Tecnologías digitales · Tema 1
 
-# Inteligencia Artificial, sin miedo y con cabeza
+# Inteligencia artificial, sin miedo y con cabeza
 
 ## Parte 1 · Qué es la IA y cómo funciona
 
@@ -57,7 +57,7 @@ Decidlo con vuestras palabras
 
 > La **inteligencia artificial** son programas capaces de hacer tareas que hasta hace poco creíamos que solo podía hacer una persona: *reconocer caras, entender lo que decimos, traducir, escribir o conversar*.
 
-La **Ley de IA europea** lo dice así: un sistema que, a partir de lo que recibe, *deduce* cómo generar predicciones, contenidos, recomendaciones o decisiones.
+La **Ley de IA europea** lo dice así: un sistema que, a partir de lo que recibe, *infiere* cómo generar predicciones, contenidos, recomendaciones o decisiones.
 
 ---
 
@@ -106,7 +106,7 @@ La **Ley de IA europea** lo dice así: un sistema que, a partir de lo que recibe
 <figure class="foto contener"><img src="img/fotos/perceptron.jpg"><figcaption>Frank Rosenblatt y el Perceptrón Mark I</figcaption></figure>
 <div class="texto">
 <p><span class="dato">1956</span> En una reunión de verano en <strong>Dartmouth</strong> (EE. UU.), John McCarthy, Marvin Minsky y Claude Shannon bautizan el campo: <em>inteligencia artificial</em>.</p>
-<p><span class="dato">1958</span> Frank Rosenblatt construye el <strong>perceptrón</strong>, la primera <strong>neurona artificial</strong> que aprendía. Con una cámara de 400 píxeles distinguía formas sencillas.</p>
+<p><span class="dato">1958</span> Frank Rosenblatt presenta el <strong>perceptrón</strong>, la primera <strong>neurona artificial</strong> que aprendía. Primero fue un programa; en 1960, una máquina, el <strong>Mark I</strong>, que con una cámara de 400 píxeles distinguía formas sencillas.</p>
 </div>
 </div>
 <div class="credito">Foto: Division of Rare and Manuscript Collections, Cornell University Library · vía Cornell Chronicle</div>
@@ -231,7 +231,7 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 <figure class="foto contener"><img src="img/fotos/proteina.jpg"><figcaption>Una proteína (mioglobina) en 3D</figcaption></figure>
 <div class="texto">
 <div class="tarjeta" style="margin-bottom:22px"><span class="ico">⚛️</span><b>Física · Hopfield y Hinton</b>Por las <strong>redes neuronales artificiales</strong>, las ideas que permiten que una máquina aprenda de ejemplos.</div>
-<div class="tarjeta sol"><span class="ico">🧪</span><b>Química · Hassabis, Jumper y Baker</b><strong>AlphaFold</strong> predice la forma de las proteínas: lo que costaba años de laboratorio, ahora en minutos.</div>
+<div class="tarjeta sol"><span class="ico">🧪</span><b>Química · Hassabis, Jumper y Baker</b>Hassabis y Jumper por <strong>AlphaFold</strong>, que predice la forma de las proteínas en minutos. Baker por <strong>diseñar proteínas nuevas</strong> con ordenador.</div>
 </div>
 </div>
 <div class="credito">Imagen: AzaToth · dominio público · Wikimedia Commons</div>
@@ -372,6 +372,8 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 | MAYÚSCULAS y ¡¡!! | +1 |
 | Es alguien de la familia | −5 |
 
+<div class="aviso">🚦 <strong>Límite: 4.</strong> Si la suma pasa de 4, va a la basura.</div>
+
 </div>
 <div>
 <div class="tarjeta alerta"><b>Correo D · «Soporte del banco»</b>+2 +3 +2 = <strong>7</strong> → pasa de 4 → <strong>basura</strong></div>
@@ -431,7 +433,7 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 
 <div class="dos">
 <div>
-<p>Hasta hace poco la IA <strong>clasificaba</strong>: ¿es spam?, ¿es un gato?</p>
+<p>Hasta hace poco la IA <strong>clasificaba</strong>: ¿es basura?, ¿es un gato?</p>
 <p>Ahora además <strong>crea</strong> contenido nuevo:</p>
 <div class="etiquetas"><span>✍️ Textos</span><span>🎨 Imágenes</span><span>🎙️ Voces</span><span>🎬 Vídeos</span><span>🎵 Música</span></div>
 </div>
@@ -532,7 +534,7 @@ Pero imita muy, muy bien la forma en que escribimos y hablamos.
 <!-- _header: '' -->
 <!-- _footer: '' -->
 
-Tema 1 · Inteligencia Artificial
+Tema 1 · Inteligencia artificial
 
 # ¡Gracias!
 

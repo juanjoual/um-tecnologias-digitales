@@ -12,9 +12,9 @@ Tema para presentaciones en Markdown con [Marp](https://marp.app), basado en el
 | Tipografía | Catamarán (respaldo: Arial) | Manual UAL |
 | Tintes del azul | `#22476f`, `#d6e2ef`, `#eef3f9` | Derivados del 653 C |
 | Acento «sol» | `#e8a33d` | **Propio, no corporativo**: solo en detalles |
-| Rojo de riesgos | `#b4432b` | **Propio**: solo módulo III |
+| Rojo de riesgos | `#b4432b` | **Propio**: solo en las diapositivas de riesgos |
 
-La portada, el cierre y los separadores de módulo llevan como marca de agua el
+La portada, el cierre y los separadores (clase `modulo`) llevan como marca de agua el
 **escudo oficial** de la UAL (versión «Escudo contratipo sin fondo», descargada de
 ual.es/identidadcorporativa). Va incrustado en `ual.css`, así que no hace falta
 copiar ninguna imagen. Se usa esa versión porque deja la **cara del sol en blanco**
@@ -59,11 +59,11 @@ Se activan con `<!-- _class: nombre -->` al principio de la diapositiva.
 |---|---|
 | *(ninguna)* | Contenido normal: título, viñetas, tablas, citas |
 | `portada` | Portada azul. El primer párrafo se convierte en etiqueta |
-| `modulo` | Separador de módulo: `# I` (numeral) + `## Título` |
+| `modulo` | Separador de tema o de parte: `# I` (numeral) + `## Título` |
 | `pregunta` | Pregunta o idea fuerza a pantalla completa, fondo oscuro |
 | `pasos` | Lista numerada en tarjetas 2×2 (instrucciones) |
 | `dos-columnas` | Reparte la lista en dos columnas |
-| `riesgo` | Variante en rojo para el módulo de riesgos |
+| `riesgo` | Variante en rojo para las diapositivas de riesgos |
 | `resumen` | Resumen de sesión en tarjetas sobre fondo claro |
 | `cierre` | Diapositiva final |
 
@@ -71,7 +71,7 @@ Además:
 
 - `> texto` → recuadro de **consejo** (en `riesgo`, recuadro de **aviso**).
 - `![bg right:36%](imagen.png)` → imagen a la derecha (sintaxis estándar de Marp).
-- `<!-- _header: 'Módulo III · Riesgos' -->` cambia la cabecera de una diapositiva.
+- `<!-- _header: 'Tema 1 · Inteligencia artificial · Riesgos' -->` cambia la cabecera de una diapositiva.
 
 ## Logotipo oficial
 
