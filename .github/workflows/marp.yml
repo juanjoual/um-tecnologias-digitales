@@ -214,18 +214,16 @@ jobs:
                   meta.append(f'{p["n"]} diapositiva{"s" if p["n"] != 1 else ""}')
               if p["fecha"]:
                   meta.append(f'actualizada el {fecha_corta(p["fecha"])}')
-              desc = f'<p class="desc">{e(p["descripcion"])}</p>' if p["descripcion"] else ""
               return f'''
                 <article class="card">
                   <a class="thumb" href="{p["html"]}" aria-label="Abrir {e(p["titulo"])}">
-                    <img src="{p["img"]}" alt="" loading="lazy" width="960" height="540">
+                    <img src="{p["img"]}" alt="Portada: {e(p["titulo"])}" loading="lazy" width="960" height="540">
                     <span class="play" aria-hidden="true">
                       <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
                     </span>
                   </a>
                   <div class="body">
-                    <h3><a href="{p["html"]}">{e(p["titulo"])}</a></h3>
-                    {desc}
+                    <h3 class="sr-only">{e(p["titulo"])}</h3>
                     <p class="meta">{" · ".join(e(m) for m in meta)}</p>
                     <div class="actions">
                       <a class="btn primary" href="{p["html"]}">
@@ -335,13 +333,14 @@ jobs:
             }}
             .play svg {{ margin-left: 4px; }}
             .card:hover .play, .thumb:focus-visible .play {{ opacity: 1; transform: scale(1); }}
-            .body {{ display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }}
+            .body {{ display: flex; flex-direction: column; flex: 1; padding: 16px 20px 20px; }}
+            .sr-only {{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }}
             .body h3 {{ margin: 0; font-size: 23px; font-weight: 800; line-height: 1.2; color: var(--noche); }}
             .body h3 a {{ text-decoration: none; }}
             .body h3 a:hover {{ color: var(--azul); }}
             .desc {{ margin: 8px 0 0; color: var(--suave); font-size: 16px; }}
-            .meta {{ margin: 12px 0 0; font-size: 14px; font-weight: 600; color: var(--suave); }}
-            .actions {{ display: flex; gap: 10px; margin-top: auto; padding-top: 20px; flex-wrap: wrap; }}
+            .meta {{ margin: 0; font-size: 14px; font-weight: 600; color: var(--suave); }}
+            .actions {{ display: flex; gap: 10px; margin-top: auto; padding-top: 14px; flex-wrap: wrap; }}
             .btn {{
               display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px;
               font-size: 16px; font-weight: 800; text-decoration: none; color: var(--oscuro);
