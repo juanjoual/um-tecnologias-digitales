@@ -3,8 +3,8 @@ marp: true
 theme: ual
 lang: es
 size: 16:9
-title: 'Tecnologías digitales: usos, oportunidades y riesgos'
-description: Universidad de Mayores · Universidad de Almería · Tecnologías digitales, usos, oportunidades y riesgos
+title: 'Presentación del equipo docente'
+description: 'Tecnologías digitales: usos, oportunidades y riesgos'
 header: 'Tecnologías digitales: usos, oportunidades y riesgos'
 footer: 'Universidad de Mayores · UAL'
 ---
@@ -65,9 +65,9 @@ section.ficha h1::after { margin-top: 16px; }
 
 Universidad de Mayores · Universidad de Almería
 
-# Tecnologías digitales
+# Presentación del equipo docente
 
-## Usos, oportunidades y riesgos
+## Tecnologías Digitales: usos, oportunidades y riesgos
 
 ---
 
