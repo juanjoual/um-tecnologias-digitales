@@ -2,8 +2,9 @@
 # En cada push:
 #   · Busca TODAS las presentaciones Marp del repo (cualquier .md con "marp: true" en el front matter)
 #   · Registra los temas propios (cualquier .css con "@theme" en la cabecera, p. ej. plantilla/ual.css)
-#   · HTML  → GitHub Pages (misma estructura de carpetas que el repo)
-#   · PDF   → una única release "latest" (se borra y se vuelve a crear)
+#   · HTML  → GitHub Pages, en /<nombre-del-md>/   (p. ej. presentacion/presentacion.md → /presentacion/)
+#   · PDF   → una única release "latest", como <nombre-del-md>.pdf (se borra y se vuelve a crear)
+#   · Si dos .md se llaman igual en carpetas distintas, se usa la ruta: modulo-1-redes, modulo-2-redes
 #
 # Requisito (una sola vez): Settings → Pages → Build and deployment → Source: "GitHub Actions"
 
@@ -42,61 +43,89 @@ jobs:
       - name: Instalar Marp CLI
         run: npm install -g @marp-team/marp-cli
 
-      - name: Generar HTML y PDF de cada presentación
+      - name: Generar HTML, PDF y miniaturas de cada presentación
+        shell: python
         run: |
-          set -euo pipefail
-          mkdir -p site pdf
-          : > lista.txt
+          import os, re, shutil, subprocess, unicodedata
+          from collections import Counter
 
-          # ¿Es una presentación Marp? (front matter con "marp: true")
-          is_marp() {
-            awk 'NR==1{if($0!~/^---[[:space:]]*$/) exit; next}
-                 /^---[[:space:]]*$/{exit}
-                 /^marp:[[:space:]]*true[[:space:]]*$/{f=1; exit}
-                 END{exit !f}' "$1"
-          }
+          EXCLUIR = {".git", ".github", "node_modules", "site", "pdf"}
+          MEDIOS = {".png", ".jpg", ".jpeg", ".gif", ".svg", ".webp", ".avif", ".bmp", ".ico",
+                    ".mp4", ".webm", ".mp3", ".ogg", ".wav", ".css", ".woff", ".woff2", ".ttf", ".otf"}
 
-          # Nombre "plano" y seguro para el PDF: carpeta/sub/Año 1.md → carpeta-sub-Ano-1
-          flat_name() {
-            python3 -c 'import sys,unicodedata,re
-          s=unicodedata.normalize("NFKD",sys.argv[1]).encode("ascii","ignore").decode()
-          print(re.sub(r"[^A-Za-z0-9._-]+","-",s).strip("-"))' "$1"
-          }
+          def recorrer(raiz="."):
+              for d, dirs, files in os.walk(raiz):
+                  dirs[:] = sorted(x for x in dirs if not (d == raiz and x in EXCLUIR) and x != "node_modules" and not x.startswith("."))
+                  for f in sorted(files):
+                      yield os.path.normpath(os.path.join(d, f))
 
-          # Temas propios: cualquier .css del repo que declare "@theme" en su cabecera
-          THEMES=()
-          while IFS= read -r -d '' css; do
-            head -n 20 "$css" | grep -q '@theme' && THEMES+=(--theme-set "$css")
-          done < <(find . -type f -name '*.css' -not -path './.git/*' -not -path '*/node_modules/*' \
-                     -not -path './site/*' -not -path './pdf/*' -print0)
-          echo "Temas propios encontrados: $(( ${#THEMES[@]} / 2 ))"
+          def es_marp(path):
+              """¿Front matter con 'marp: true'?"""
+              with open(path, encoding="utf-8", errors="replace") as fh:
+                  if fh.readline().strip() != "---":
+                      return False
+                  for line in fh:
+                      if line.strip() == "---":
+                          return False
+                      if re.match(r"^marp:\s*true\s*$", line.strip()):
+                          return True
+              return False
 
-          find . -type f -name '*.md' \
-            -not -path './.git/*' -not -path './.github/*' -not -path '*/node_modules/*' \
-            -not -path './site/*' -not -path './pdf/*' -print0 | sort -z |
-          while IFS= read -r -d '' f; do
-            is_marp "$f" || continue
-            rel="${f#./}"
-            base="${rel%.md}"
-            flat="$(flat_name "$base")"
-            echo "▶ $rel"
-            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files -o "site/$base.html"
-            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files --pdf -o "pdf/$flat.pdf"
-            # Miniatura de la primera diapositiva para la página índice
-            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files --image jpeg --image-scale 0.75 -o "site/$base.jpg"
-            printf '%s\t%s\n' "$base" "$flat" >> lista.txt
-          done
+          def limpiar(s):
+              """Nombre seguro para URL y para GitHub: 'Año 1' → 'Ano-1'."""
+              s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode()
+              return re.sub(r"[^A-Za-z0-9._-]+", "-", s).strip("-") or "presentacion"
 
-          echo "Presentaciones generadas: $(wc -l < lista.txt)"
+          def marp(*args):
+              subprocess.run(["marp", *temas, "--no-stdin", "--allow-local-files", *args], check=True)
 
-      - name: Copiar imágenes y otros recursos a la web
-        run: |
-          rsync -a --prune-empty-dirs \
-            --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='/site/' --exclude='/pdf/' \
-            --include='*/' \
-            --include='*.'{png,PNG,jpg,JPG,jpeg,JPEG,gif,GIF,svg,SVG,webp,WEBP,avif,mp4,webm,mp3,css,woff,woff2} \
-            --exclude='*' \
-            ./ site/
+          # ── Temas propios: .css con "@theme" en la cabecera ───────────────────────────
+          temas = []
+          for p in recorrer():
+              if p.endswith(".css"):
+                  with open(p, encoding="utf-8", errors="replace") as fh:
+                      if "@theme" in "".join(fh.readlines()[:20]):
+                          temas += ["--theme-set", p]
+          print(f"Temas propios: {[temas[i] for i in range(1, len(temas), 2)] or 'ninguno'}")
+
+          # ── Presentaciones y su nombre público ────────────────────────────────────────
+          mds = [p for p in recorrer() if p.endswith(".md") and es_marp(p)]
+          nombre = {p: limpiar(os.path.splitext(os.path.basename(p))[0]) for p in mds}
+          repetidos = {n for n, c in Counter(nombre.values()).items() if c > 1}
+          for p in mds:
+              if nombre[p] in repetidos:   # mismo nombre en varias carpetas → se usa la ruta completa
+                  nombre[p] = limpiar(os.path.splitext(p)[0].replace(os.sep, "-"))
+
+          os.makedirs("site/_miniaturas", exist_ok=True)
+          os.makedirs("pdf", exist_ok=True)
+
+          with open("lista.txt", "w", encoding="utf-8") as lista:
+              for p in mds:
+                  n = nombre[p]
+                  print(f"▶ {p}  →  /{n}/  ·  {n}.pdf")
+                  destino = os.path.join("site", n)
+                  os.makedirs(destino, exist_ok=True)
+
+                  # Recursos (imágenes, vídeos…) de la carpeta del .md, para que las rutas relativas funcionen
+                  origen = os.path.dirname(p) or "."
+                  for r in recorrer(origen):
+                      if os.path.splitext(r)[1].lower() in MEDIOS:
+                          dst = os.path.join(destino, os.path.relpath(r, origen))
+                          os.makedirs(os.path.dirname(dst), exist_ok=True)
+                          shutil.copy2(r, dst)
+
+                  marp(p, "-o", os.path.join(destino, "index.html"))
+                  marp(p, "--pdf", "-o", os.path.join("pdf", f"{n}.pdf"))
+                  marp(p, "--image", "jpeg", "--image-scale", "0.75", "-o", os.path.join("site", "_miniaturas", f"{n}.jpg"))
+                  lista.write(f"{p}\t{n}\n")
+
+          # ── Logo de la cabecera del índice ────────────────────────────────────────────
+          logo = os.environ.get("SITE_LOGO", "")
+          if logo and os.path.isfile(logo):
+              os.makedirs("site/_recursos", exist_ok=True)
+              shutil.copy2(logo, os.path.join("site/_recursos", os.path.basename(logo)))
+
+          print(f"Presentaciones generadas: {len(mds)}")
 
       - name: Crear página índice
         shell: python
@@ -162,17 +191,18 @@ jobs:
           grupos = {}
           with open("lista.txt", encoding="utf-8") as fh:
               for line in fh:
-                  base, flat = line.rstrip("\n").split("\t")
-                  folder, name = os.path.split(base)
-                  fm = front_matter(base + ".md")
+                  md, slug = line.rstrip("\n").split("\t")
+                  folder = os.path.dirname(md)
+                  fm = front_matter(md)
+                  name = os.path.splitext(os.path.basename(md))[0]
                   grupos.setdefault(folder, []).append({
                       "titulo": fm.get("title") or name.replace("-", " ").replace("_", " "),
                       "descripcion": fm.get("description", ""),
-                      "html": quote(base) + ".html",
-                      "img": quote(base) + ".jpg",
-                      "pdf": f"{pdf_url}/{quote(flat)}.pdf",
-                      "n": num_diapositivas(f"site/{base}.html"),
-                      "fecha": ultima_modificacion(base + ".md"),
+                      "html": quote(slug) + "/",
+                      "img": "_miniaturas/" + quote(slug) + ".jpg",
+                      "pdf": f"{pdf_url}/{quote(slug)}.pdf",
+                      "n": num_diapositivas(f"site/{slug}/index.html"),
+                      "fecha": ultima_modificacion(md),
                   })
 
           total = sum(len(v) for v in grupos.values())
@@ -223,7 +253,8 @@ jobs:
           if not secciones:
               secciones.append('<p class="empty">Todavía no hay presentaciones.</p>')
 
-          logo = f'<img class="watermark" src="{quote(site_logo)}" alt="" aria-hidden="true">' if site_logo and os.path.exists(f"site/{site_logo}") else ""
+          logo_web = "_recursos/" + os.path.basename(site_logo) if site_logo else ""
+          logo = f'<img class="watermark" src="{quote(logo_web)}" alt="" aria-hidden="true">' if logo_web and os.path.exists(f"site/{logo_web}") else ""
           subtitulo = f'<p class="kicker">{e(site_subtitle)}</p>' if site_subtitle else ""
           ahora = datetime.datetime.now(datetime.timezone.utc)
 
