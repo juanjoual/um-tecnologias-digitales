@@ -14,6 +14,12 @@ on:
     branches: [main]          # cambia si tu rama principal tiene otro nombre
   workflow_dispatch:          # permite lanzarlo a mano desde la pestaña Actions
 
+# Personaliza aquí la portada del índice (déjalas vacías para usar valores por defecto)
+env:
+  SITE_TITLE: "Tecnologías digitales"
+  SITE_SUBTITLE: "Universidad de Mayores · Universidad de Almería"
+  SITE_LOGO: "plantilla/img/escudo-ual-blanco.webp"   # ruta dentro del repo; marca de agua de la cabecera
+
 concurrency:
   group: marp
   cancel-in-progress: true    # si haces dos push seguidos, solo cuenta el último
@@ -26,6 +32,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0      # historial completo, para mostrar la fecha de última modificación
 
       - uses: actions/setup-node@v7
         with:
@@ -74,6 +82,8 @@ jobs:
             echo "▶ $rel"
             marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files -o "site/$base.html"
             marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files --pdf -o "pdf/$flat.pdf"
+            # Miniatura de la primera diapositiva para la página índice
+            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files --image jpeg --image-scale 0.75 -o "site/$base.jpg"
             printf '%s\t%s\n' "$base" "$flat" >> lista.txt
           done
 
@@ -91,68 +101,273 @@ jobs:
       - name: Crear página índice
         shell: python
         run: |
-          import html, os, sys, datetime
+          import html, os, re, subprocess, datetime
           from urllib.parse import quote
 
+          # ── Configuración (variables "env" del workflow) ──────────────────────────────
           repo = os.environ["GITHUB_REPOSITORY"]
           sha = os.environ.get("GITHUB_SHA", "")[:7]
+          site_title = os.environ.get("SITE_TITLE") or repo.split("/")[-1].replace("-", " ").capitalize()
+          site_subtitle = os.environ.get("SITE_SUBTITLE", "")
+          site_logo = os.environ.get("SITE_LOGO", "")
           pdf_url = f"https://github.com/{repo}/releases/latest/download"
+          repo_url = f"https://github.com/{repo}"
 
-          def front_title(md_path):
-              """Devuelve el 'title:' del front matter, si lo hay."""
+          MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+                   "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+
+          def fecha_corta(d):
+              return f"{d.day} {MESES[d.month - 1][:3]} {d.year}"
+
+          def fecha_es(d):
+              return f"{d.day} de {MESES[d.month - 1]} de {d.year}"
+
+          def front_matter(md_path):
+              """Lee las claves simples (clave: valor) del front matter."""
+              data = {}
               try:
                   with open(md_path, encoding="utf-8") as fh:
                       lines = fh.read().splitlines()
               except OSError:
-                  return None
+                  return data
               if not lines or lines[0].strip() != "---":
-                  return None
+                  return data
               for l in lines[1:]:
                   if l.strip() == "---":
                       break
-                  if l.startswith("title:"):
-                      t = l[len("title:"):].strip()
-                      if len(t) >= 2 and t[0] == t[-1] and t[0] in "'\"":
-                          t = t[1:-1]
-                      return t or None
-              return None
+                  m = re.match(r"^([A-Za-z_][\w-]*):\s*(.*)$", l)
+                  if m:
+                      v = m.group(2).strip()
+                      if len(v) >= 2 and v[0] == v[-1] and v[0] in "'\"":
+                          v = v[1:-1]
+                      data[m.group(1)] = v
+              return data
 
-          items = []
+          def ultima_modificacion(md_path):
+              try:
+                  out = subprocess.run(["git", "log", "-1", "--format=%cs", "--", md_path],
+                                       capture_output=True, text=True, check=True).stdout.strip()
+                  return datetime.date.fromisoformat(out) if out else None
+              except Exception:
+                  return None
+
+          def num_diapositivas(html_path):
+              try:
+                  with open(html_path, encoding="utf-8") as fh:
+                      return len(re.findall(r'<section id="\d+"', fh.read()))
+              except OSError:
+                  return 0
+
+          # ── Recoger presentaciones ────────────────────────────────────────────────────
+          grupos = {}
           with open("lista.txt", encoding="utf-8") as fh:
               for line in fh:
                   base, flat = line.rstrip("\n").split("\t")
                   folder, name = os.path.split(base)
-                  name = front_title(base + ".md") or name
-                  items.append((folder, name, base, flat))
+                  fm = front_matter(base + ".md")
+                  grupos.setdefault(folder, []).append({
+                      "titulo": fm.get("title") or name.replace("-", " ").replace("_", " "),
+                      "descripcion": fm.get("description", ""),
+                      "html": quote(base) + ".html",
+                      "img": quote(base) + ".jpg",
+                      "pdf": f"{pdf_url}/{quote(flat)}.pdf",
+                      "n": num_diapositivas(f"site/{base}.html"),
+                      "fecha": ultima_modificacion(base + ".md"),
+                  })
 
-          out = ['<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">',
-                 '<meta name="viewport" content="width=device-width, initial-scale=1">',
-                 '<title>Presentaciones</title><style>',
-                 'body{font-family:system-ui,sans-serif;max-width:760px;margin:3rem auto;padding:0 1rem;line-height:1.6;color:#1f2328}',
-                 'h2{font-size:1rem;color:#57606a;margin:2rem 0 .3rem;font-weight:600}',
-                 'ul{margin:0;padding-left:1.2rem}li{margin:.3rem 0}a{color:#0969da}',
-                 'small a{margin-left:.6rem;color:#57606a}footer{margin-top:3rem;color:#57606a;font-size:.85rem}',
-                 '</style></head><body><h1>Presentaciones</h1>']
+          total = sum(len(v) for v in grupos.values())
+          e = html.escape
 
-          current = None
-          for folder, name, base, flat in sorted(items):
-              if folder != current:
-                  if current is not None:
-                      out.append("</ul>")
-                  out.append(f"<h2>{html.escape(folder or '/')}</h2><ul>")
-                  current = folder
-              out.append(f'<li><a href="{quote(base)}.html">{html.escape(name)}</a>'
-                         f'<small><a href="{pdf_url}/{quote(flat)}.pdf">PDF</a></small></li>')
-          if current is not None:
-              out.append("</ul>")
-          else:
-              out.append("<p>No hay presentaciones todavía.</p>")
+          def tarjeta(p):
+              meta = []
+              if p["n"]:
+                  meta.append(f'{p["n"]} diapositiva{"s" if p["n"] != 1 else ""}')
+              if p["fecha"]:
+                  meta.append(f'actualizada el {fecha_corta(p["fecha"])}')
+              desc = f'<p class="desc">{e(p["descripcion"])}</p>' if p["descripcion"] else ""
+              return f'''
+                <article class="card">
+                  <a class="thumb" href="{p["html"]}" aria-label="Abrir {e(p["titulo"])}">
+                    <img src="{p["img"]}" alt="" loading="lazy" width="960" height="540">
+                    <span class="play" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+                    </span>
+                  </a>
+                  <div class="body">
+                    <h3><a href="{p["html"]}">{e(p["titulo"])}</a></h3>
+                    {desc}
+                    <p class="meta">{" · ".join(e(m) for m in meta)}</p>
+                    <div class="actions">
+                      <a class="btn primary" href="{p["html"]}">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 5h18v11H3zM8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        Ver presentación
+                      </a>
+                      <a class="btn" href="{p["pdf"]}">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        PDF
+                      </a>
+                    </div>
+                  </div>
+                </article>'''
 
-          now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-          out.append(f"<footer>Actualizado: {now} · commit {sha}</footer></body></html>")
+          secciones = []
+          varias_carpetas = len(grupos) > 1
+          for folder in sorted(grupos):
+              cards = "".join(tarjeta(p) for p in sorted(grupos[folder], key=lambda p: p["titulo"].lower()))
+              cabecera = ""
+              if varias_carpetas:
+                  etiqueta = re.sub(r"[-_]+", " ", folder).replace("/", " › ") if folder else "General"
+                  cabecera = f'<h2 class="folder">{e(etiqueta)}</h2>'
+              secciones.append(f'<section class="group">{cabecera}<div class="grid">{cards}</div></section>')
+
+          if not secciones:
+              secciones.append('<p class="empty">Todavía no hay presentaciones.</p>')
+
+          logo = f'<img class="watermark" src="{quote(site_logo)}" alt="" aria-hidden="true">' if site_logo and os.path.exists(f"site/{site_logo}") else ""
+          subtitulo = f'<p class="kicker">{e(site_subtitle)}</p>' if site_subtitle else ""
+          ahora = datetime.datetime.now(datetime.timezone.utc)
+
+          pagina = f'''<!DOCTYPE html>
+          <html lang="es">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>{e(site_title)} · Presentaciones</title>
+          <meta name="description" content="{e(site_subtitle or site_title)}">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+          <style>
+            :root {{
+              --azul: #316094; --noche: #233646; --oscuro: #22476f;
+              --claro: #d6e2ef; --velo: #eef3f9; --sol: #e8a33d;
+              --texto: #1f2a36; --suave: #5b6b7c; --fondo: #f6f8fb;
+            }}
+            * {{ box-sizing: border-box; }}
+            html {{ -webkit-text-size-adjust: 100%; }}
+            body {{
+              margin: 0; font-family: Catamaran, Arial, sans-serif; color: var(--texto);
+              background: var(--fondo); font-size: 18px; line-height: 1.5;
+            }}
+            a {{ color: inherit; }}
+
+            /* Cabecera */
+            .hero {{
+              position: relative; overflow: hidden; color: #fff;
+              background: radial-gradient(120% 140% at 0% 0%, #3a6ea6 0%, var(--azul) 40%, var(--noche) 100%);
+              padding: clamp(56px, 8vw, 96px) 24px clamp(104px, 10vw, 136px);
+            }}
+            .hero .wrap {{ position: relative; z-index: 1; }}
+            .watermark {{
+              position: absolute; right: -6%; top: 50%; transform: translateY(-50%);
+              height: 150%; opacity: .12; pointer-events: none; user-select: none;
+            }}
+            .kicker {{
+              display: inline-block; margin: 0 0 22px; padding: 4px 14px;
+              border: 1.5px solid rgba(255,255,255,.55); border-radius: 999px;
+              font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+            }}
+            .hero h1 {{
+              margin: 0; font-size: clamp(40px, 6vw, 68px); font-weight: 900;
+              line-height: 1.05; letter-spacing: -.01em; max-width: 16ch;
+            }}
+            .hero .bar {{ width: 72px; height: 5px; border-radius: 3px; background: var(--sol); margin: 26px 0 18px; }}
+            .hero .count {{ margin: 0; font-size: 20px; font-weight: 600; opacity: .9; }}
+
+            .wrap {{ max-width: 1160px; margin: 0 auto; }}
+            main {{ padding: 0 24px; margin-top: -64px; position: relative; z-index: 2; }}
+
+            /* Grupos y rejilla */
+            .group + .group {{ margin-top: 56px; }}
+            .folder {{
+              margin: 0 0 18px; font-size: 14px; font-weight: 800; letter-spacing: .14em;
+              text-transform: uppercase; color: var(--azul);
+            }}
+            .group:first-child .folder {{ color: #fff; }}
+            .grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 28px; }}
+
+            /* Tarjetas */
+            .card {{
+              display: flex; flex-direction: column; background: #fff; border-radius: 18px; overflow: hidden;
+              box-shadow: 0 1px 2px rgba(35,54,70,.06), 0 12px 32px -12px rgba(35,54,70,.22);
+              border-top: 5px solid var(--azul);
+              transition: transform .2s ease, box-shadow .2s ease;
+            }}
+            .card:hover {{ transform: translateY(-4px); box-shadow: 0 2px 4px rgba(35,54,70,.08), 0 22px 44px -14px rgba(35,54,70,.32); }}
+            .thumb {{ position: relative; display: block; aspect-ratio: 16 / 9; background: var(--velo); }}
+            .thumb img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
+            .play {{
+              position: absolute; inset: 0; margin: auto; width: 64px; height: 64px; border-radius: 50%;
+              display: grid; place-items: center; color: var(--azul); background: rgba(255,255,255,.94);
+              box-shadow: 0 6px 20px rgba(0,0,0,.25); opacity: 0; transform: scale(.85);
+              transition: opacity .2s ease, transform .2s ease;
+            }}
+            .play svg {{ margin-left: 4px; }}
+            .card:hover .play, .thumb:focus-visible .play {{ opacity: 1; transform: scale(1); }}
+            .body {{ display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }}
+            .body h3 {{ margin: 0; font-size: 23px; font-weight: 800; line-height: 1.2; color: var(--noche); }}
+            .body h3 a {{ text-decoration: none; }}
+            .body h3 a:hover {{ color: var(--azul); }}
+            .desc {{ margin: 8px 0 0; color: var(--suave); font-size: 16px; }}
+            .meta {{ margin: 12px 0 0; font-size: 14px; font-weight: 600; color: var(--suave); }}
+            .actions {{ display: flex; gap: 10px; margin-top: auto; padding-top: 20px; flex-wrap: wrap; }}
+            .btn {{
+              display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px;
+              font-size: 16px; font-weight: 800; text-decoration: none; color: var(--oscuro);
+              background: var(--velo); border: 2px solid var(--claro);
+              transition: background .15s ease, border-color .15s ease, color .15s ease;
+            }}
+            .btn:hover {{ border-color: var(--azul); }}
+            .btn.primary {{ background: var(--azul); border-color: var(--azul); color: #fff; }}
+            .btn.primary:hover {{ background: var(--oscuro); border-color: var(--oscuro); }}
+            a:focus-visible {{ outline: 3px solid var(--sol); outline-offset: 3px; border-radius: 6px; }}
+
+            .empty {{ background: #fff; padding: 32px; border-radius: 18px; text-align: center; color: var(--suave); }}
+
+            footer {{ padding: 0 24px 40px; margin-top: 72px; color: var(--suave); font-size: 14px; }}
+            footer .wrap {{
+              border-top: 1px solid var(--claro); padding-top: 24px;
+              display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+            }}
+            footer a {{ color: var(--azul); font-weight: 700; }}
+
+            @media (max-width: 600px) {{
+              .watermark {{ height: 110%; right: -30%; opacity: .08; }}
+              .kicker {{ border-radius: 14px; }}
+            }}
+            @media (prefers-reduced-motion: reduce) {{ * {{ transition: none !important; }} }}
+          </style>
+          </head>
+          <body>
+            <header class="hero">
+              {logo}
+              <div class="wrap">
+                {subtitulo}
+                <h1>{e(site_title)}</h1>
+                <div class="bar"></div>
+                <p class="count">{total} presentaci{"ones" if total != 1 else "ón"}</p>
+              </div>
+            </header>
+
+            <main>
+              <div class="wrap">
+                {"".join(secciones)}
+              </div>
+            </main>
+
+            <footer>
+              <div class="wrap">
+                <span>Última publicación: {fecha_es(ahora.date())}</span>
+                <span>Generado con <a href="https://marp.app">Marp</a> · <a href="{repo_url}">código fuente</a> · <a href="{repo_url}/commit/{os.environ.get("GITHUB_SHA", "")}">{e(sha)}</a></span>
+              </div>
+            </footer>
+          </body>
+          </html>
+          '''
 
           with open("site/index.html", "w", encoding="utf-8") as fh:
-              fh.write("\n".join(out))
+              fh.write(pagina)
+          print(f"Índice creado con {total} presentación(es)")
 
       - name: Preparar web para Pages
         uses: actions/upload-pages-artifact@v5
