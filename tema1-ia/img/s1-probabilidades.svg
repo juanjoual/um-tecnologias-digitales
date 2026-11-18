@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 412" width="1110" height="412" font-family="Catamaran, Arial, Helvetica, sans-serif">
+<defs><marker id="flecha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#233646"/></marker><marker id="flechaSol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="18" markerHeight="18" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8a33d"/></marker></defs>
+<text x="0" y="32" font-size="30" fill="#316094" font-weight="800" text-anchor="start" >«Esta tarde voy a tomar un…»</text>
+<text x="0" y="102" font-size="28" fill="#1f2a36" font-weight="700" text-anchor="start" >café</text>
+<rect x="120" y="66" width="460" height="46" rx="8" fill="#e8a33d" stroke="none" stroke-width="0" />
+<text x="592" y="100" font-size="26" fill="#233646" font-weight="800" text-anchor="start" >46 %</text>
+<text x="0" y="166" font-size="28" fill="#1f2a36" font-weight="700" text-anchor="start" >té</text>
+<rect x="120" y="130" width="180" height="46" rx="8" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<text x="312" y="164" font-size="26" fill="#233646" font-weight="800" text-anchor="start" >18 %</text>
+<text x="0" y="230" font-size="28" fill="#1f2a36" font-weight="700" text-anchor="start" >paseo</text>
+<rect x="120" y="194" width="120" height="46" rx="8" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<text x="252" y="228" font-size="26" fill="#233646" font-weight="800" text-anchor="start" >12 %</text>
+<text x="0" y="294" font-size="28" fill="#1f2a36" font-weight="700" text-anchor="start" >helado</text>
+<rect x="120" y="258" width="80" height="46" rx="8" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<text x="212" y="292" font-size="26" fill="#233646" font-weight="800" text-anchor="start" >8 %</text>
+<text x="0" y="358" font-size="28" fill="#1f2a36" font-weight="700" text-anchor="start" >vino</text>
+<rect x="120" y="322" width="60" height="46" rx="8" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<text x="192" y="356" font-size="26" fill="#233646" font-weight="800" text-anchor="start" >6 %</text>
+<text x="0" y="400" font-size="18" fill="#4b5b6b" font-weight="600" text-anchor="start" >Porcentajes ilustrativos</text>
+<circle cx="726" cy="62" r="24" fill="#316094"/>
+<text x="726" y="71" font-size="24" fill="#fff" font-weight="900" text-anchor="middle" >1</text>
+<text x="766" y="62" font-size="24" fill="#1f2a36" font-weight="800" text-anchor="start" >Calcula cómo de probable es</text>
+<text x="766" y="92" font-size="22" fill="#4b5b6b" font-weight="700" text-anchor="start" >cada palabra que podría seguir</text>
+<line x1="726" y1="90" x2="726" y2="152" stroke="#d6e2ef" stroke-width="4"/>
+<circle cx="726" cy="182" r="24" fill="#316094"/>
+<text x="726" y="191" font-size="24" fill="#fff" font-weight="900" text-anchor="middle" >2</text>
+<text x="766" y="182" font-size="24" fill="#1f2a36" font-weight="800" text-anchor="start" >Elige una de las más probables</text>
+<text x="766" y="212" font-size="22" fill="#4b5b6b" font-weight="700" text-anchor="start" >(aquí, «café»)</text>
+<line x1="726" y1="210" x2="726" y2="272" stroke="#d6e2ef" stroke-width="4"/>
+<circle cx="726" cy="302" r="24" fill="#316094"/>
+<text x="726" y="311" font-size="24" fill="#fff" font-weight="900" text-anchor="middle" >3</text>
+<text x="766" y="302" font-size="24" fill="#1f2a36" font-weight="800" text-anchor="start" >La añade a la frase</text>
+<text x="766" y="332" font-size="22" fill="#4b5b6b" font-weight="700" text-anchor="start" >y vuelve a empezar</text>
+<path d="M702,302 C650,302 650,62 700,62" fill="none" stroke="#e8a33d" stroke-width="4" stroke-dasharray="8 6" marker-end="url(#flechaSol)"/>
+</svg>

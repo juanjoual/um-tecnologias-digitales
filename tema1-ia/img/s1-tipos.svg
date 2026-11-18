@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 440" width="1110" height="440" font-family="Catamaran, Arial, Helvetica, sans-serif">
+<defs><marker id="flecha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#233646"/></marker><marker id="flechaSol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="18" markerHeight="18" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8a33d"/></marker></defs>
+<rect x="3" y="6" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="3" y="6" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="37" cy="54" r="20" fill="#316094"/>
+<text x="37" y="62" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >1</text>
+<text x="19" y="106" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Sistemas</text>
+<text x="19" y="132" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >expertos</text>
+<text x="17" y="156" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Programas de</text>
+<text x="17" y="180" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >gestión</text>
+<rect x="224" y="6" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="224" y="6" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="258" cy="54" r="20" fill="#316094"/>
+<text x="258" y="62" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >2</text>
+<text x="240" y="106" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Búsqueda y</text>
+<text x="240" y="132" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >juegos</text>
+<text x="238" y="156" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >El GPS calcula la</text>
+<text x="238" y="180" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >ruta</text>
+<rect x="445" y="6" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="445" y="6" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="479" cy="54" r="20" fill="#316094"/>
+<text x="479" y="62" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >3</text>
+<text x="461" y="118" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Clasificadores</text>
+<text x="459" y="156" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Detectar fraude</text>
+<text x="459" y="180" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >con tarjeta</text>
+<rect x="666" y="6" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="666" y="6" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="700" cy="54" r="20" fill="#316094"/>
+<text x="700" y="62" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >4</text>
+<text x="682" y="106" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Visión por</text>
+<text x="682" y="132" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >ordenador</text>
+<text x="680" y="156" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Desbloqueo con la</text>
+<text x="680" y="180" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >cara</text>
+<rect x="887" y="6" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="887" y="6" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="921" cy="54" r="20" fill="#316094"/>
+<text x="921" y="62" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >5</text>
+<text x="903" y="118" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Recomendación</text>
+<text x="901" y="156" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >YouTube, Netflix</text>
+<rect x="3" y="224" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="3" y="224" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="37" cy="272" r="20" fill="#316094"/>
+<text x="37" y="280" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >6</text>
+<text x="19" y="324" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Reconocimiento</text>
+<text x="19" y="350" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >de voz</text>
+<text x="17" y="374" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Dictar un</text>
+<text x="17" y="398" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >WhatsApp</text>
+<rect x="224" y="224" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="224" y="224" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="258" cy="272" r="20" fill="#316094"/>
+<text x="258" y="280" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >7</text>
+<text x="240" y="324" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Aprendizaje</text>
+<text x="240" y="350" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >por refuerzo</text>
+<text x="238" y="374" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Robots, AlphaGo</text>
+<rect x="445" y="224" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="445" y="224" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="479" cy="272" r="20" fill="#316094"/>
+<text x="479" y="280" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >8</text>
+<text x="461" y="336" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >IA científica</text>
+<text x="459" y="374" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >AlphaFold (Nobel</text>
+<text x="459" y="398" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >2024)</text>
+<rect x="666" y="224" width="204" height="196" rx="16" fill="#eef3f9" stroke="none" stroke-width="0" />
+<rect x="666" y="224" width="204" height="10" rx="5" fill="#316094"/>
+<circle cx="700" cy="272" r="20" fill="#316094"/>
+<text x="700" y="280" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >9</text>
+<text x="682" y="324" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >Generadores</text>
+<text x="682" y="350" font-size="23" fill="#316094" font-weight="800" text-anchor="start" >de imágenes</text>
+<text x="680" y="374" font-size="20" fill="#1f2a36" font-weight="700" text-anchor="start" >Dibujos con IA</text>
+<rect x="887" y="224" width="204" height="196" rx="16" fill="#e8a33d" stroke="none" stroke-width="0" />
+<rect x="887" y="224" width="204" height="10" rx="5" fill="#233646"/>
+<circle cx="921" cy="272" r="20" fill="#233646"/>
+<text x="921" y="280" font-size="22" fill="#fff" font-weight="800" text-anchor="middle" >10</text>
+<text x="903" y="342" font-size="44" fill="#233646" font-weight="900" text-anchor="start" >LLM</text>
+<text x="901" y="374" font-size="20" fill="#233646" font-weight="700" text-anchor="start" >ChatGPT, Gemini,</text>
+<text x="901" y="398" font-size="20" fill="#233646" font-weight="700" text-anchor="start" >Claude</text>
+</svg>

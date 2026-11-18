@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 410" width="1110" height="410" font-family="Catamaran, Arial, Helvetica, sans-serif">
+<defs><marker id="flecha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#233646"/></marker><marker id="flechaSol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="18" markerHeight="18" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8a33d"/></marker></defs>
+<circle cx="205" cy="205" r="200" fill="#eef3f9" stroke="#fff" stroke-width="4"/>
+<circle cx="205" cy="253" r="152" fill="#d6e2ef" stroke="#fff" stroke-width="4"/>
+<circle cx="205" cy="299" r="106" fill="#316094" stroke="#fff" stroke-width="4"/>
+<circle cx="205" cy="343" r="62" fill="#e8a33d" stroke="#fff" stroke-width="4"/>
+<text x="205" y="35" font-size="19" fill="#316094" font-weight="800" text-anchor="middle" >Inteligencia</text>
+<text x="205" y="56" font-size="19" fill="#316094" font-weight="800" text-anchor="middle" >artificial</text>
+<text x="205" y="131" font-size="19" fill="#316094" font-weight="800" text-anchor="middle" >Aprendizaje</text>
+<text x="205" y="152" font-size="19" fill="#316094" font-weight="800" text-anchor="middle" >automático</text>
+<text x="205" y="223" font-size="19" fill="#ffffff" font-weight="800" text-anchor="middle" >Aprendizaje</text>
+<text x="205" y="244" font-size="19" fill="#ffffff" font-weight="800" text-anchor="middle" >profundo</text>
+<text x="205" y="340" font-size="21" fill="#233646" font-weight="800" text-anchor="middle" >IA</text>
+<text x="205" y="362" font-size="19" fill="#233646" font-weight="800" text-anchor="middle" >generativa</text>
+<circle cx="448" cy="30" r="15" fill="#eef3f9" stroke="#316094" stroke-width="2"/>
+<text x="474" y="40" font-size="28" fill="#316094" font-weight="800" text-anchor="start" >Inteligencia artificial</text>
+<text x="474" y="70" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >Cualquier técnica para que una máquina haga algo «inteligente»,</text>
+<text x="474" y="96" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >incluso con reglas escritas a mano. Ej.: Deep Blue (ajedrez)</text>
+<circle cx="448" cy="130" r="15" fill="#d6e2ef" stroke="#316094" stroke-width="2"/>
+<text x="474" y="140" font-size="28" fill="#316094" font-weight="800" text-anchor="start" >Aprendizaje automático</text>
+<text x="474" y="170" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >La máquina descubre las reglas a partir de muchos ejemplos,</text>
+<text x="474" y="196" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >sin que nadie se las escriba. Ej.: el filtro de correo basura</text>
+<circle cx="448" cy="230" r="15" fill="#316094" stroke="#316094" stroke-width="2"/>
+<text x="474" y="240" font-size="28" fill="#316094" font-weight="800" text-anchor="start" >Aprendizaje profundo</text>
+<text x="474" y="270" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >Aprendizaje automático con redes de neuronas artificiales</text>
+<text x="474" y="296" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >de muchas capas. Ej.: desbloquear el móvil con la cara</text>
+<circle cx="448" cy="330" r="15" fill="#e8a33d" stroke="#316094" stroke-width="2"/>
+<text x="474" y="340" font-size="28" fill="#316094" font-weight="800" text-anchor="start" >IA generativa</text>
+<text x="474" y="370" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >Aprendizaje profundo que no solo reconoce: crea textos,</text>
+<text x="474" y="396" font-size="21.5" fill="#1f2a36" font-weight="600" text-anchor="start" >imágenes y voces nuevos. Ej.: ChatGPT, Gemini</text>
+</svg>
