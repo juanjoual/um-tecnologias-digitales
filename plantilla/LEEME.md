@@ -1,0 +1,80 @@
+# Tema Marp «ual» · Universidad de Almería
+
+Tema para presentaciones en Markdown con [Marp](https://marp.app), basado en el
+*Manual de Identidad Corporativa* de la UAL y pensado para la Universidad de Mayores.
+
+## Identidad aplicada
+
+| Elemento | Valor | Origen |
+|---|---|---|
+| Azul corporativo | Pantone 653 C · `#316094` | Manual UAL |
+| Azul noche | `#233646` | Firma corporativa UAL |
+| Tipografía | Catamarán (respaldo: Arial) | Manual UAL |
+| Tintes del azul | `#22476f`, `#d6e2ef`, `#eef3f9` | Derivados del 653 C |
+| Acento «sol» | `#e8a33d` | **Propio, no corporativo**: solo en detalles |
+| Rojo de riesgos | `#b4432b` | **Propio**: solo módulo III |
+
+La portada, el cierre y los separadores de módulo llevan como marca de agua el
+**escudo oficial** de la UAL (versión «Escudo contratipo sin fondo», descargada de
+ual.es/identidadcorporativa). Va incrustado en `ual.css`, así que no hace falta
+copiar ninguna imagen. Se usa esa versión porque deja la **cara del sol en blanco**
+sobre el azul, como exige la instrucción corporativa (la cara invertida es error).
+La transparencia se ajusta con `--escudo-opacidad` (por defecto 0,16).
+
+## Uso
+
+**VS Code** (extensión *Marp for VS Code*): en `settings.json`
+
+```json
+"markdown.marp.themes": ["./ual.css"]
+```
+
+y en la cabecera del `.md` pon `theme: ual`.
+
+**Línea de órdenes:**
+
+```bash
+npx @marp-team/marp-cli ejemplo.md --theme ual.css --pdf --allow-local-files
+npx @marp-team/marp-cli ejemplo.md --theme ual.css --pptx --allow-local-files
+```
+
+## Tipos de diapositiva
+
+Se activan con `<!-- _class: nombre -->` al principio de la diapositiva.
+
+| Clase | Para qué |
+|---|---|
+| *(ninguna)* | Contenido normal: título, viñetas, tablas, citas |
+| `portada` | Portada azul. El primer párrafo se convierte en etiqueta |
+| `modulo` | Separador de módulo: `# I` (numeral) + `## Título` |
+| `pregunta` | Pregunta o idea fuerza a pantalla completa, fondo oscuro |
+| `pasos` | Lista numerada en tarjetas 2×2 (instrucciones) |
+| `dos-columnas` | Reparte la lista en dos columnas |
+| `riesgo` | Variante en rojo para el módulo de riesgos |
+| `resumen` | Resumen de sesión en tarjetas sobre fondo claro |
+| `cierre` | Diapositiva final |
+
+Además:
+
+- `> texto` → recuadro de **consejo** (en `riesgo`, recuadro de **aviso**).
+- `![bg right:36%](imagen.png)` → imagen a la derecha (sintaxis estándar de Marp).
+- `<!-- _header: 'Módulo III · Riesgos' -->` cambia la cabecera de una diapositiva.
+
+## Logotipo oficial
+
+En `img/ual-oficial/` tienes los archivos oficiales en alta resolución (PNG de
+1300–2900 px y el PDF vectorial). Para poner el logotipo completo, por ejemplo en
+la portada, que es azul 653 C, usa la versión **blanca**:
+
+```markdown
+![h:90](img/ual-oficial/logo-horizontal-blanco.png)
+```
+
+Respeta el área de cortesía del manual (4x libre alrededor) y no recolores ni
+deformes el logotipo.
+
+## Accesibilidad (público mayor)
+
+- Texto base de 34 px en 1280×720 (equivale a unos 26 pt en PowerPoint).
+- Contraste alto: texto `#1f2a36` sobre blanco; blanco sobre azul 653 C.
+- Recomendación: máximo 4–5 viñetas por diapositiva.
