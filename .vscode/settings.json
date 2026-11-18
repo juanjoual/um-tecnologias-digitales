@@ -1,0 +1,4 @@
+{
+  "markdown.marp.themes": ["./plantilla/ual.css"],
+  "markdown.marp.html": "all"
+}

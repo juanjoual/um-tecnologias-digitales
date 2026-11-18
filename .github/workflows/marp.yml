@@ -1,6 +1,7 @@
 # Guardar en: .github/workflows/marp.yml
 # En cada push:
 #   · Busca TODAS las presentaciones Marp del repo (cualquier .md con "marp: true" en el front matter)
+#   · Usa --html: permite el HTML de las diapositivas (style="…", <div>…), igual que en VS Code con "markdown.marp.html": "all"
 #   · Registra los temas propios (cualquier .css con "@theme" en la cabecera, p. ej. plantilla/ual.css)
 #   · HTML  → GitHub Pages, en /<nombre-del-md>/   (p. ej. presentacion/presentacion.md → /presentacion/)
 #   · PDF   → una única release "latest", como <nombre-del-md>.pdf (se borra y se vuelve a crear)
@@ -77,7 +78,7 @@ jobs:
               return re.sub(r"[^A-Za-z0-9._-]+", "-", s).strip("-") or "presentacion"
 
           def marp(*args):
-              subprocess.run(["marp", *temas, "--no-stdin", "--allow-local-files", *args], check=True)
+              subprocess.run(["marp", *temas, "--html", "--no-stdin", "--allow-local-files", *args], check=True)
 
           # ── Temas propios: .css con "@theme" en la cabecera ───────────────────────────
           temas = []

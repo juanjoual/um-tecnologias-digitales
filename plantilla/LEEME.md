@@ -23,20 +23,33 @@ La transparencia se ajusta con `--escudo-opacidad` (por defecto 0,16).
 
 ## Uso
 
-**VS Code** (extensión *Marp for VS Code*): en `settings.json`
+En la cabecera del `.md` pon `theme: ual`. Las diapositivas usan HTML (`<div>`,
+`style="…"`) para barras, gráficos y tamaños de foto, así que **hay que activar el
+HTML**; sin él, Marp lo filtra y esas diapositivas salen rotas.
+
+**VS Code** (extensión *Marp for VS Code*): el repositorio ya trae
+`.vscode/settings.json` con esta configuración, que se aplica al abrir la carpeta
+raíz del repositorio:
 
 ```json
-"markdown.marp.themes": ["./ual.css"]
+{
+  "markdown.marp.themes": ["./plantilla/ual.css"],
+  "markdown.marp.html": "all"
+}
 ```
 
-y en la cabecera del `.md` pon `theme: ual`.
+VS Code solo muestra el HTML si confías en la carpeta (*Workspace Trust*).
 
-**Línea de órdenes:**
+**Línea de órdenes** (desde la raíz del repositorio):
 
 ```bash
-npx @marp-team/marp-cli ejemplo.md --theme ual.css --pdf --allow-local-files
-npx @marp-team/marp-cli ejemplo.md --theme ual.css --pptx --allow-local-files
+npx @marp-team/marp-cli tema1-ia/tema1-ia-parte1.md --theme-set ./plantilla/ual.css --html --pdf --allow-local-files
+npx @marp-team/marp-cli tema1-ia/tema1-ia-parte1.md --theme-set ./plantilla/ual.css --html --pptx --allow-local-files
 ```
+
+**Publicación automática:** al hacer push a `main`, el workflow
+`.github/workflows/marp.yml` genera la web (GitHub Pages) y los PDF (release
+`latest`) con estas mismas opciones.
 
 ## Tipos de diapositiva
 
