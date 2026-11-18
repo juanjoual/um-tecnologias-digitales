@@ -1,0 +1,210 @@
+# Guardar en: .github/workflows/marp.yml
+# En cada push:
+#   · Busca TODAS las presentaciones Marp del repo (cualquier .md con "marp: true" en el front matter)
+#   · Registra los temas propios (cualquier .css con "@theme" en la cabecera, p. ej. plantilla/ual.css)
+#   · HTML  → GitHub Pages (misma estructura de carpetas que el repo)
+#   · PDF   → una única release "latest" (se borra y se vuelve a crear)
+#
+# Requisito (una sola vez): Settings → Pages → Build and deployment → Source: "GitHub Actions"
+
+name: Presentaciones Marp
+
+on:
+  push:
+    branches: [main]          # cambia si tu rama principal tiene otro nombre
+  workflow_dispatch:          # permite lanzarlo a mano desde la pestaña Actions
+
+concurrency:
+  group: marp
+  cancel-in-progress: true    # si haces dos push seguidos, solo cuenta el último
+
+jobs:
+  # ───────────────────────── 1. Generar todo ─────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar Marp CLI
+        run: npm install -g @marp-team/marp-cli
+
+      - name: Generar HTML y PDF de cada presentación
+        run: |
+          set -euo pipefail
+          mkdir -p site pdf
+          : > lista.txt
+
+          # ¿Es una presentación Marp? (front matter con "marp: true")
+          is_marp() {
+            awk 'NR==1{if($0!~/^---[[:space:]]*$/) exit; next}
+                 /^---[[:space:]]*$/{exit}
+                 /^marp:[[:space:]]*true[[:space:]]*$/{f=1; exit}
+                 END{exit !f}' "$1"
+          }
+
+          # Nombre "plano" y seguro para el PDF: carpeta/sub/Año 1.md → carpeta-sub-Ano-1
+          flat_name() {
+            python3 -c 'import sys,unicodedata,re
+          s=unicodedata.normalize("NFKD",sys.argv[1]).encode("ascii","ignore").decode()
+          print(re.sub(r"[^A-Za-z0-9._-]+","-",s).strip("-"))' "$1"
+          }
+
+          # Temas propios: cualquier .css del repo que declare "@theme" en su cabecera
+          THEMES=()
+          while IFS= read -r -d '' css; do
+            head -n 20 "$css" | grep -q '@theme' && THEMES+=(--theme-set "$css")
+          done < <(find . -type f -name '*.css' -not -path './.git/*' -not -path '*/node_modules/*' \
+                     -not -path './site/*' -not -path './pdf/*' -print0)
+          echo "Temas propios encontrados: $(( ${#THEMES[@]} / 2 ))"
+
+          find . -type f -name '*.md' \
+            -not -path './.git/*' -not -path './.github/*' -not -path '*/node_modules/*' \
+            -not -path './site/*' -not -path './pdf/*' -print0 | sort -z |
+          while IFS= read -r -d '' f; do
+            is_marp "$f" || continue
+            rel="${f#./}"
+            base="${rel%.md}"
+            flat="$(flat_name "$base")"
+            echo "▶ $rel"
+            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files -o "site/$base.html"
+            marp "$rel" "${THEMES[@]}" --no-stdin --allow-local-files --pdf -o "pdf/$flat.pdf"
+            printf '%s\t%s\n' "$base" "$flat" >> lista.txt
+          done
+
+          echo "Presentaciones generadas: $(wc -l < lista.txt)"
+
+      - name: Copiar imágenes y otros recursos a la web
+        run: |
+          rsync -a --prune-empty-dirs \
+            --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='/site/' --exclude='/pdf/' \
+            --include='*/' \
+            --include='*.'{png,PNG,jpg,JPG,jpeg,JPEG,gif,GIF,svg,SVG,webp,WEBP,avif,mp4,webm,mp3,css,woff,woff2} \
+            --exclude='*' \
+            ./ site/
+
+      - name: Crear página índice
+        shell: python
+        run: |
+          import html, os, sys, datetime
+          from urllib.parse import quote
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          sha = os.environ.get("GITHUB_SHA", "")[:7]
+          pdf_url = f"https://github.com/{repo}/releases/latest/download"
+
+          def front_title(md_path):
+              """Devuelve el 'title:' del front matter, si lo hay."""
+              try:
+                  with open(md_path, encoding="utf-8") as fh:
+                      lines = fh.read().splitlines()
+              except OSError:
+                  return None
+              if not lines or lines[0].strip() != "---":
+                  return None
+              for l in lines[1:]:
+                  if l.strip() == "---":
+                      break
+                  if l.startswith("title:"):
+                      t = l[len("title:"):].strip()
+                      if len(t) >= 2 and t[0] == t[-1] and t[0] in "'\"":
+                          t = t[1:-1]
+                      return t or None
+              return None
+
+          items = []
+          with open("lista.txt", encoding="utf-8") as fh:
+              for line in fh:
+                  base, flat = line.rstrip("\n").split("\t")
+                  folder, name = os.path.split(base)
+                  name = front_title(base + ".md") or name
+                  items.append((folder, name, base, flat))
+
+          out = ['<!DOCTYPE html><html lang="es"><head><meta charset="utf-8">',
+                 '<meta name="viewport" content="width=device-width, initial-scale=1">',
+                 '<title>Presentaciones</title><style>',
+                 'body{font-family:system-ui,sans-serif;max-width:760px;margin:3rem auto;padding:0 1rem;line-height:1.6;color:#1f2328}',
+                 'h2{font-size:1rem;color:#57606a;margin:2rem 0 .3rem;font-weight:600}',
+                 'ul{margin:0;padding-left:1.2rem}li{margin:.3rem 0}a{color:#0969da}',
+                 'small a{margin-left:.6rem;color:#57606a}footer{margin-top:3rem;color:#57606a;font-size:.85rem}',
+                 '</style></head><body><h1>Presentaciones</h1>']
+
+          current = None
+          for folder, name, base, flat in sorted(items):
+              if folder != current:
+                  if current is not None:
+                      out.append("</ul>")
+                  out.append(f"<h2>{html.escape(folder or '/')}</h2><ul>")
+                  current = folder
+              out.append(f'<li><a href="{quote(base)}.html">{html.escape(name)}</a>'
+                         f'<small><a href="{pdf_url}/{quote(flat)}.pdf">PDF</a></small></li>')
+          if current is not None:
+              out.append("</ul>")
+          else:
+              out.append("<p>No hay presentaciones todavía.</p>")
+
+          now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+          out.append(f"<footer>Actualizado: {now} · commit {sha}</footer></body></html>")
+
+          with open("site/index.html", "w", encoding="utf-8") as fh:
+              fh.write("\n".join(out))
+
+      - name: Preparar web para Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - name: Guardar PDFs para la release
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: pdf
+          retention-days: 1
+
+  # ───────────────────────── 2. HTML → GitHub Pages ─────────────────────────
+  pages:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ───────────────────────── 3. PDF → release "latest" ─────────────────────────
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pdfs
+          path: pdf
+
+      - name: Sustituir la release "latest"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          # Borra la release anterior y su tag (si no existe, no pasa nada)
+          gh release delete latest --yes --cleanup-tag || true
+
+          # Crea la nueva con todos los PDF
+          shopt -s nullglob
+          gh release create latest pdf/*.pdf \
+            --target "$GITHUB_SHA" \
+            --title "Presentaciones (última versión)" \
+            --notes "PDFs generados automáticamente desde el commit ${GITHUB_SHA::7}. Versión web: https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/" \
+            --latest
