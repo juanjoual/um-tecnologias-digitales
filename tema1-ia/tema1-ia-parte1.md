@@ -287,8 +287,8 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 # Ciencia y creación
 
 <div class="rejilla-2">
-<div class="tarjeta con-foto contener"><img src="img/fotos/proteina.jpg"><b>8 · IA científica</b><p>Predice cómo es la naturaleza.<span class="ejemplo">Ej.: AlphaFold (Nobel 2024)</span></p></div>
-<div class="tarjeta con-foto alerta"><img src="img/fotos/generada.jpg"><b>9 · Generadores de imágenes</b><p>Crean imágenes nuevas a partir de una descripción.<span class="ejemplo">Esta foto nunca existió: la hizo una IA</span></p></div>
+<div class="tarjeta con-foto contener"><img src="img/fotos/proteina.jpg" style="height:220px"><b>8 · IA científica</b><p>Predice cómo es la naturaleza.<span class="ejemplo">Ej.: AlphaFold (Nobel 2024)</span></p></div>
+<div class="tarjeta con-foto alerta"><img src="img/fotos/generada.jpg" style="height:220px;object-position:center 8%"><b>9 · Generadores de imágenes</b><p>Crean imágenes nuevas a partir de una descripción.<span class="ejemplo">Esta foto nunca existió: la hizo una IA</span></p></div>
 </div>
 <div class="credito">Imágenes: AzaToth (dominio público) · VulcanSphere, generada con IA (dominio público) · Wikimedia Commons</div>
 
