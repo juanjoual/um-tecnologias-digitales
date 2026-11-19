@@ -106,7 +106,7 @@ La **Ley de IA europea** lo dice así: un sistema que, a partir de lo que recibe
 <figure class="foto contener"><img src="img/fotos/perceptron.jpg"><figcaption>Frank Rosenblatt y el Perceptrón Mark I</figcaption></figure>
 <div class="texto">
 <p><span class="dato">1956</span> En una reunión de verano en <strong>Dartmouth</strong> (EE. UU.), John McCarthy, Marvin Minsky y Claude Shannon bautizan el campo: <em>inteligencia artificial</em>.</p>
-<p><span class="dato">1958</span> Frank Rosenblatt presenta el <strong>perceptrón</strong>, la primera <strong>neurona artificial</strong> que aprendía. Primero fue un programa; en 1960, una máquina, el <strong>Mark I</strong>, que con una cámara de 400 píxeles distinguía formas sencillas.</p>
+<p><span class="dato">1958</span> Frank Rosenblatt presenta el <strong>perceptrón</strong>, la primera <strong>neurona artificial</strong> que aprendía. En 1960 ya era una máquina, el <strong>Mark I</strong>, con una cámara de 400 píxeles.</p>
 </div>
 </div>
 <div class="credito">Foto: Division of Rare and Manuscript Collections, Cornell University Library · vía Cornell Chronicle</div>
@@ -372,7 +372,7 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 | MAYÚSCULAS y ¡¡!! | +1 |
 | Es alguien de la familia | −5 |
 
-<div class="aviso">🚦 <strong>Límite: 4.</strong> Si la suma pasa de 4, va a la basura.</div>
+<div class="aviso">🚦 Si pasa de <strong>4</strong> → basura</div>
 
 </div>
 <div>
