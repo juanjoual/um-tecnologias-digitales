@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1110 340" width="1110" height="340" font-family="Catamaran, Arial, Helvetica, sans-serif"><style id="fuente-catamaran">@font-face{font-family:'Catamaran';font-weight:600;src:url(data:font/woff2;base64,d09GMgABAAAAAAWwAA4AAAAACdQAAAVcAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGyAcIAZgP1NUQVQqAHwRCAqMLIk0ATYCJANQCyoABCAFVAcgGz8HIC4G7CZ5al/kKI3lqD/OzG7Mw+Ch7L5e98xqFpLOzs6pEJkZmAKKrv6AnpWH0p6cCkyRgnmfVOiE+bEdJ3l6aBJGaDKnt9kOHifQlIIk4uk/SFd1K+vP/fY+catfcMleIWSOEEmimZIhJGjiuuGJyNHof4BBjROX0x9tbJ/PIZR4QnvitrmtqAsj6h6jufntNZG/gNuAFrD2NsaFCEzsmGqmQ78dAWi44IbIyUPCwG5UAB0AMGmSM53xGJA/c+fEgBnQWFUulA3sALlJxDIBipGINsTCG9JWWFvRGAwBF/Hgl1ry/zUwYekScjfijfwAHqgIBIYKp02rdEHO97flLN3SwakfPAIyTMQGxQm9ygAAdligoI8HvbTSTowUWbrp40eqEQ86VbwEGbruhe6F50rHtkyDIyANgdDBHJoNuwIAZxDPQLYAFA02cconKRGgaWLCHvFq1lFVE1e7IiLEq/f4Wk65qr1F4bj8UPtdFmq7aqpXI8Var35lDxuH7iLm8/6DFGugALTHj1nxBIvaRBhlJSEaz3MfTPB2bg2DVFxj9Iv6LTVq805hA0Q2F1Y8XhcZJ/jGU3O2aEtE0p1KZGFHl5dT45J6GDZb+bcuG5dlM1e2SYGH0atR9+lXPaFIGpYMjXE6x9jouTMiGbqhM6WVDEejoGgFQ3bw60u7XaYVE7Dise808YSXFpNbux3UWHwMhibbN/eY6CqSbVhxKf4SY+Vga4U1AJlx2zpADMrOTcQToI5Lislz3eZd+sAWz/rsMnrZ1Ir9hqWaFM3NYywbhH4KFGMc3a2Mq0nbOiAKyvD9i80VM3EkcWeWXK6FtTAUCh2seHCJXWrkYMWhMmK1amzduq8+Rxwy0GSWAbr7Ks2mzVpDU3hfZEpfqY+cpSf3WtFfSC0K1rSerf/qEw27TAzYtk0xY4yj0x11+XfTgM8Ximzogm5QGSoHGkudtlAEpcOUKSjJEcl9B7iqUhP4M4Tl40WFVzJsKz0xgyaDeNWZmN5d8ziW/WFMOxOaPFfZm9lTcljIxcFTVvqXk2dh97TZVT/WI3eYj/XIfxxAv2Pq5clX522QlEGX8SDaTNKAlF34l9H7YHT+p1Nx3KBOI15VJmZwQ1dvrJ1boLs0YZTotue5P3NVAQt4OPuahf7f0IwXjx1gblct7HZ1GJQZD6LJ9On30f82jZECYmMFW2ok7skTxdmXtOJx+1o1716ndoWb7v4O8tXv55fJJC7FbNpr00jyQSXIDvOSEYEa1aWOfMNejaNvom/ixFALBHXVQDYIZwNOXg9pZ+BIdfkT70omTShKK+X4sE2kxZmKnp5OdL/CxqR0vFhNunTKgHgSBvYsD6LPJvXuWvZ5NczjE+BzVuZjBLEjPOLEvbcj7VeBb3zlehR5RHNxrASAX4QjsZOTmUPFvupbMxFUn/YVL9pO3dj6Zq+NjS0KGeS4S8qPq2gnflqk9lSGQxsRK2N3oe+hhzsWWRROZsVlk90Aw6+r0z9bVzFkQmFKKcdFbEIdzlj8db/F8wqv85/UtHkgHKOcPMLeoK7aXYN++/ucjKMnGtGdMw2EYtTNJtSVHJxNRR8F6YcxYIAVNwEswEX3S1rKrwhAQlzQIurmKX8MFeU9wIOEq7sB3vksBAF1kyXmdNA3HdWmo9snjxlQ0Lofj3Yb5aVtvATxk1DpSY54jIsMxUX8Z4FA/cAugn/kyCCSZAgu0pUM0YFaHABXGUSceIcm3qNxGc3EfKwji0PigxLSKUXqCkEoCNUIMDNN5QSYYFapjwVOVP0MwK5UPRnQYW/vqTZyhLo93maYSRKjiW2QLt2LAg==) format('woff2')}@font-face{font-family:'Catamaran';font-weight:800;src:url(data:font/woff2;base64,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) format('woff2')}</style>
+<defs><marker id="flecha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#233646"/></marker><marker id="flechaSol" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="18" markerHeight="18" markerUnits="userSpaceOnUse" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e8a33d"/></marker></defs>
+<text x="150" y="36" font-size="34" fill="#4b5b6b" font-weight="800" text-anchor="middle" >2023</text>
+<rect x="95" y="80" width="90" height="120" rx="6" fill="#fff" stroke="#c9d1da" stroke-width="2" />
+<rect x="107" y="98" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="114" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="130" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="146" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="162" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="178" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="107" y="90" width="90" height="120" rx="6" fill="#fff" stroke="#c9d1da" stroke-width="2" />
+<rect x="119" y="108" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="124" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="140" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="156" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="172" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="188" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="119" y="100" width="90" height="120" rx="6" fill="#fff" stroke="#c9d1da" stroke-width="2" />
+<rect x="131" y="118" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="131" y="134" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="131" y="150" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="131" y="166" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="131" y="182" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<rect x="131" y="198" width="64" height="5" rx="2" fill="#d6e2ef" stroke="none" stroke-width="0" />
+<text x="150" y="290" font-size="27" fill="#233646" font-weight="800" text-anchor="middle" >Unas pocas páginas</text>
+<text x="150" y="322" font-size="23" fill="#4b5b6b" font-weight="600" text-anchor="middle" >y olvidaba el principio</text>
+<line x1="300" y1="150" x2="390" y2="150" stroke="#e8a33d" stroke-width="6" marker-end="url(#flechaSol)"/>
+<text x="745" y="36" font-size="34" fill="#316094" font-weight="800" text-anchor="middle" >Hoy</text>
+<rect x="420" y="215" width="650" height="14" rx="4" fill="#233646" stroke="none" stroke-width="0" />
+<rect x="432" y="65" width="34" height="150" rx="5" fill="#e8a33d" stroke="none" stroke-width="0" />
+<rect x="437" y="79" width="24" height="5" rx="2" fill="#233646" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="472" y="72" width="39" height="143" rx="5" fill="#e8a33d" stroke="none" stroke-width="0" />
+<rect x="477" y="86" width="29" height="5" rx="2" fill="#233646" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="517" y="79" width="44" height="136" rx="5" fill="#316094" stroke="none" stroke-width="0" />
+<rect x="522" y="93" width="34" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="567" y="86" width="35" height="129" rx="5" fill="#233646" stroke="none" stroke-width="0" />
+<rect x="572" y="100" width="25" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="608" y="93" width="40" height="122" rx="5" fill="#22476f" stroke="none" stroke-width="0" />
+<rect x="613" y="107" width="30" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="654" y="70" width="45" height="145" rx="5" fill="#316094" stroke="none" stroke-width="0" />
+<rect x="659" y="84" width="35" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="705" y="77" width="36" height="138" rx="5" fill="#233646" stroke="none" stroke-width="0" />
+<rect x="710" y="91" width="26" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="747" y="84" width="41" height="131" rx="5" fill="#22476f" stroke="none" stroke-width="0" />
+<rect x="752" y="98" width="31" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="794" y="91" width="46" height="124" rx="5" fill="#316094" stroke="none" stroke-width="0" />
+<rect x="799" y="105" width="36" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="846" y="68" width="37" height="147" rx="5" fill="#22476f" stroke="none" stroke-width="0" />
+<rect x="851" y="82" width="27" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="889" y="75" width="42" height="140" rx="5" fill="#233646" stroke="none" stroke-width="0" />
+<rect x="894" y="89" width="32" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="937" y="82" width="47" height="133" rx="5" fill="#316094" stroke="none" stroke-width="0" />
+<rect x="942" y="96" width="37" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="990" y="89" width="38" height="126" rx="5" fill="#22476f" stroke="none" stroke-width="0" />
+<rect x="995" y="103" width="28" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<rect x="1034" y="66" width="43" height="149" rx="5" fill="#316094" stroke="none" stroke-width="0" />
+<rect x="1039" y="80" width="33" height="5" rx="2" fill="#ffffff" stroke="none" stroke-width="0" opacity="0.6"/>
+<text x="468" y="253" font-size="22" fill="#233646" font-weight="800" text-anchor="middle" >el Quijote</text>
+<text x="800" y="290" font-size="27" fill="#233646" font-weight="800" text-anchor="middle" >Hasta un millón de trozos de palabra:</text>
+<text x="800" y="322" font-size="23" fill="#4b5b6b" font-weight="600" text-anchor="middle" >varios libros gordos en una conversación</text>
+</svg>
