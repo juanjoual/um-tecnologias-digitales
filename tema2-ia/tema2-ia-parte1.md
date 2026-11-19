@@ -449,7 +449,7 @@ Concurso **ImageNet**: 1,2 millones de fotos de 1.000 categorías. Una red neuro
 
 ![h:340](img/s1-llm.svg)
 
-<div class="etiquetas"><span>ChatGPT</span><span>Gemini</span><span>Claude</span><span>Copilot</span><span>Meta AI</span><span>DeepSeek</span><span>Le Chat</span></div>
+<div class="etiquetas"><span>ChatGPT</span><span>Gemini</span><span>Claude</span><span>Copilot</span><span>Meta AI</span><span>DeepSeek</span><span>Vibe</span></div>
 
 ---
 
