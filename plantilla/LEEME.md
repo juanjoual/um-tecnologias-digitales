@@ -43,8 +43,8 @@ VS Code solo muestra el HTML si confías en la carpeta (*Workspace Trust*).
 **Línea de órdenes** (desde la raíz del repositorio):
 
 ```bash
-npx @marp-team/marp-cli tema1-ia/tema1-ia-parte1.md --theme-set ./plantilla/ual.css --html --pdf --allow-local-files
-npx @marp-team/marp-cli tema1-ia/tema1-ia-parte1.md --theme-set ./plantilla/ual.css --html --pptx --allow-local-files
+npx @marp-team/marp-cli tema2-ia/tema2-ia-parte1.md --theme-set ./plantilla/ual.css --html --pdf --allow-local-files
+npx @marp-team/marp-cli tema2-ia/tema2-ia-parte1.md --theme-set ./plantilla/ual.css --html --pptx --allow-local-files
 ```
 
 **Publicación automática:** al hacer push a `main`, el workflow
@@ -71,7 +71,7 @@ Además:
 
 - `> texto` → recuadro de **consejo** (en `riesgo`, recuadro de **aviso**).
 - `![bg right:36%](imagen.png)` → imagen a la derecha (sintaxis estándar de Marp).
-- `<!-- _header: 'Tema 1 · Inteligencia artificial · Riesgos' -->` cambia la cabecera de una diapositiva.
+- `<!-- _header: 'Tema 2 · Inteligencia artificial · Riesgos' -->` cambia la cabecera de una diapositiva.
 
 ## Logotipo oficial
 
