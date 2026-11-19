@@ -67,7 +67,7 @@ Universidad de Mayores · Universidad de Almería
 
 # Presentación del equipo docente
 
-## Tecnologías Digitales: usos, oportunidades y riesgos
+## Tecnologías digitales: usos, oportunidades y riesgos
 
 ---
 
