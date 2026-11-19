@@ -4,9 +4,9 @@ theme: ual
 lang: es
 size: 16:9
 paginate: true
-title: Tema 1 · Inteligencia artificial · Parte 1 · Qué es la IA y cómo funciona
+title: Tema 2 · Inteligencia artificial · Parte 1 · Qué es la IA y cómo funciona
 description: Universidad de Mayores · Universidad de Almería · Tecnologías digitales, usos, oportunidades y riesgos
-header: 'Tema 1 · Inteligencia artificial · Parte 1'
+header: 'Tema 2 · Inteligencia artificial · Parte 1'
 footer: 'Tecnologías digitales · Universidad de Mayores · UAL'
 ---
 
@@ -14,7 +14,7 @@ footer: 'Tecnologías digitales · Universidad de Mayores · UAL'
 <!-- _header: '' -->
 <!-- _footer: '' -->
 
-Tecnologías digitales · Tema 1
+Tecnologías digitales · Tema 2
 
 # Inteligencia artificial, sin miedo y con cabeza
 
@@ -534,7 +534,7 @@ Pero imita muy, muy bien la forma en que escribimos y hablamos.
 <!-- _header: '' -->
 <!-- _footer: '' -->
 
-Tema 1 · Inteligencia artificial
+Tema 2 · Inteligencia artificial
 
 # ¡Gracias!
 
