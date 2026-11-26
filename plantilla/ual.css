@@ -320,6 +320,7 @@ section.pregunta h1 {
 }
 section.pregunta h1::after { background: var(--sol); }
 section.pregunta p { color: var(--ual-claro); font-size: 30px; }
+section.pregunta strong { color: var(--sol); }
 section.pregunta header { color: var(--ual-claro); }
 section.pregunta footer { color: var(--ual-claro); border-top-color: rgba(255,255,255,.2); }
 section.pregunta::after { background: #fff; color: var(--ual-tinta); }
